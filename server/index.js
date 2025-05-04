@@ -1,26 +1,22 @@
+require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
-// Load environment variables
-dotenv.config();
-
-// Create Express app
 const app = express();
 
 // Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors({
+    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    credentials: true
+}));
 
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('MongoDB connection error:', err));
 
 // Email transporter
 let transporter;
@@ -77,67 +73,16 @@ const messageSchema = new mongoose.Schema({
 const Message = mongoose.model('Message', messageSchema);
 
 // Routes
-app.post('/api/contact', async (req, res) => {
-  try {
-    const { name, email, message } = req.body;
-    
-    if (!name || !email || !message) {
-      return res.status(400).json({ error: 'All fields are required' });
-    }
+app.use('/api/contact', require('./routes/contact'));
 
-    // Save to MongoDB
-    const newMessage = new Message({ name, email, message });
-    await newMessage.save();
-    console.log('Message saved to MongoDB');
-
-    // Check if email transporter is configured
-    if (!transporter) {
-      throw new Error('Email service not configured');
-    }
-
-    // Send email
-    const mailOptions = {
-      from: {
-        name: 'Portfolio Contact Form',
-        address: process.env.EMAIL_USER
-      },
-      to: process.env.EMAIL_USER,
-      replyTo: email,
-      subject: `Portfolio Contact: Message from ${name}`,
-      html: `
-        <h3>New Message from Portfolio Contact Form</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `,
-    };
-
-    try {
-      await transporter.sendMail(mailOptions);
-      console.log('Email sent successfully');
-      res.status(201).json({ message: 'Message sent successfully' });
-    } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-      // Still return success if MongoDB save worked
-      res.status(201).json({ 
-        message: 'Message saved but email delivery failed',
-        warning: 'Email notification could not be sent'
-      });
-    }
-  } catch (error) {
-    console.error('Error processing message:', error);
-    res.status(500).json({ 
-      error: 'Failed to process message',
-      details: error.message
-    });
-  }
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log('Email User:', process.env.EMAIL_USER ? 'Configured' : 'Missing');
-  console.log('Email Password:', process.env.EMAIL_PASS ? 'Configured' : 'Missing');
+    console.log(`Server running on port ${PORT}`);
+    console.log('Email User:', process.env.EMAIL_USER ? 'Configured' : 'Missing');
+    console.log('Email Password:', process.env.EMAIL_PASS ? 'Configured' : 'Missing');
 }); 
