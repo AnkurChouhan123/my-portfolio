@@ -72,7 +72,7 @@ const Hero = () => {
                 </span>
               </h1>
               <h2 className="text-xl md:text-2xl font-semibold text-gray-600 dark:text-gray-300">
-                Software Engineer <span className="text-black dark:text-white">(in progress)</span>
+                Web developer
               </h2>
             </motion.div>
             

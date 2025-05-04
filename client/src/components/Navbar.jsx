@@ -40,7 +40,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               smooth={true}
               offset={-64}
               duration={500}
-              className="font-bold text-xl cursor-pointer bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              className="font-bold text-xl cursor-pointer text-blue-600 bg-clip-text"
             >
               Ankur Chouhan
             </Link>
