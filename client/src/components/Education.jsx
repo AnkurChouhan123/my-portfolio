@@ -9,7 +9,7 @@ const Education = () => {
       period: '2nd Year, 4th Semester',
       description: 'Currently pursuing my B.Tech degree with a focus on computer science and software engineering.',
     },
-  ]
+  ] 
 
   return (
     <section id="education" className="relative w-full py-20 bg-gray-50 dark:bg-gray-800 overflow-hidden">

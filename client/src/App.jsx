@@ -8,7 +8,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import './App.css'
 
-function App() {
+function App() {  
   const [darkMode, setDarkMode] = useState(true)
 
   return (

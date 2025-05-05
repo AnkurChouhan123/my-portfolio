@@ -12,7 +12,7 @@ const Hero = () => {
     if (index < fullText.length) {
       const timeout = setTimeout(() => {
         setText(prev => prev + fullText[index])
-        setIndex(index + 1)
+        setIndex(index + 1) 
       }, 50)
       return () => clearTimeout(timeout)
     }

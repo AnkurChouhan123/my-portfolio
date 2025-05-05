@@ -6,4 +6,4 @@ export default {
     tailwind,
     autoprefixer,
   ],
-} 
+}  

@@ -10,7 +10,7 @@ const Projects = () => {
       image: 'https://via.placeholder.com/600x400?text=Coming+Soon',
       githubLink: 'https://github.com/AnkurChouhan123',
       liveLink: '#',
-    },
+    }, 
     {
       title: 'E-Commerce Platform',
       description: 'A modern e-commerce platform with user authentication, product management, and shopping cart functionality.',

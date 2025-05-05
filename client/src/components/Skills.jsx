@@ -12,7 +12,7 @@ const Skills = () => {
       ],
     },
     {
-      category: 'Frontend',
+      category: 'Frontend', 
       items: [
         { name: 'HTML', icon: FaHtml5, level: 70 },
         { name: 'CSS', icon: FaCss3, level: 65 },

@@ -3,7 +3,7 @@
 A modern, responsive portfolio website built with the MERN stack (MongoDB, Express.js, React.js, Node.js).
 
 ## Features
-
+ 
 - 🌓 Dark/Light mode
 - 📱 Fully responsive design
 - ✨ Smooth animations with Framer Motion

@@ -41,7 +41,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               offset={-64}
               duration={500}
               className="font-bold text-xl cursor-pointer text-blue-600 bg-clip-text"
-            >
+            > 
               Ankur Chouhan
             </Link>
           </motion.div>
