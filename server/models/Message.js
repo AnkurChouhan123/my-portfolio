@@ -1,26 +1,13 @@
 const mongoose = require('mongoose');
 
-// Define the schema for the messages
 const messageSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  message: {
-    type: String,
-    required: true,
-  },
+  name: String,
+  email: String,
+  message: String,
   createdAt: {
     type: Date,
-    default: Date.now,
-  },
+    default: Date.now
+  }
 });
 
-// Create the model based on the schema
-const Message = mongoose.model('Message', messageSchema);
-
-module.exports = Message;
+module.exports = mongoose.models.Message || mongoose.model('Message', messageSchema);
